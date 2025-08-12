@@ -24,6 +24,31 @@ async function main() {
       .returningAll()
       .execute()
   );
+
+  console.log('Find users with at least two posts');
+  // SELECT User.*, postCount FROM User LEFT JOIN 
+  //   (SELECT authorId, COUNT(*) AS postCount FROM Post GROUP BY authorId) AS UserPosts
+  // ON
+  //   UserPosts.authorId = User.id
+  // WHERE
+  //   postCount > 1
+  console.log(
+    await db.$qb
+      .selectFrom('User')
+      .leftJoin(
+        eb => eb
+          .selectFrom('Post')
+          .select('authorId')
+          .select(({fn}) => fn.countAll().as('postCount'))
+          .groupBy('authorId')
+          .as('UserPosts'),
+        join => join.onRef('UserPosts.authorId', '=', 'User.id')
+      )
+      .selectAll('User')
+      .select('postCount')
+      .where('postCount', '>', 1)
+      .execute()
+  );
 }
 
 main();
