@@ -18,20 +18,21 @@ async function main() {
     await db.$qb
       .insertInto('Post')
       .values([
-        { title: 'Post1', published: true, authorId: user.id, updatedAt: new Date().toISOString() },
-        { title: 'Post2', published: false, authorId: user.id, updatedAt: new Date().toISOString() }
+        { title: 'Post1', authorId: user.id, updatedAt: new Date().toISOString() },
+        { title: 'Post2', authorId: user.id, updatedAt: new Date().toISOString() }
       ])
       .returningAll()
       .execute()
   );
 
   console.log('Find users with at least two posts');
-  // SELECT User.*, postCount FROM User LEFT JOIN 
-  //   (SELECT authorId, COUNT(*) AS postCount FROM Post GROUP BY authorId) AS UserPosts
-  // ON
-  //   UserPosts.authorId = User.id
-  // WHERE
-  //   postCount > 1
+  // build a query equivalent to the following SQL:
+  //   SELECT User.*, postCount FROM User LEFT JOIN 
+  //     (SELECT authorId, COUNT(*) AS postCount FROM Post GROUP BY authorId) AS UserPosts
+  //   ON
+  //     UserPosts.authorId = User.id
+  //   WHERE
+  //     postCount > 1
   console.log(
     await db.$qb
       .selectFrom('User')
@@ -48,6 +49,19 @@ async function main() {
       .select('postCount')
       .where('postCount', '>', 1)
       .execute()
+  );
+
+  console.log('Use query builder inside filter');
+  console.log(
+    await db.user.findMany({
+      where: {
+        $expr: (eb) => 
+          eb
+            .selectFrom('Post')
+            .select(eb => eb(eb.fn.countAll(), '>', 1).as('postCountFilter'))
+            .whereRef('Post.authorId', '=', 'User.id')
+      }
+    })
   );
 }
 
