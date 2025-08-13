@@ -4,7 +4,8 @@
   "scripts": {
     "generate": "zen generate",
     "dev": "tsx query-builder.ts",
-    "query-builder": "tsx query-builder.ts"
+    "query-builder": "tsx query-builder.ts",
+    "computed-fields": "tsx computed-fields"
   },
   "devDependencies": {
     "@types/node": "^24.1.0",

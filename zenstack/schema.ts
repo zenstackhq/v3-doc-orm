@@ -5,7 +5,7 @@
 
 /* eslint-disable */
 
-import { type SchemaDef, ExpressionUtils } from "@zenstackhq/runtime/schema";
+import { type SchemaDef, type OperandExpression, ExpressionUtils } from "@zenstackhq/runtime/schema";
 export const schema = {
     provider: {
         type: "sqlite"
@@ -32,12 +32,23 @@ export const schema = {
                     type: "Post",
                     array: true,
                     relation: { opposite: "author" }
+                },
+                postCount: {
+                    name: "postCount",
+                    type: "Int",
+                    attributes: [{ name: "@computed" }],
+                    computed: true
                 }
             },
             idFields: ["id"],
             uniqueFields: {
                 id: { type: "Int" },
                 email: { type: "String" }
+            },
+            computedFields: {
+                postCount(): OperandExpression<number> {
+                    throw new Error("This is a stub for computed field");
+                }
             }
         },
         Post: {
