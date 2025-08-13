@@ -23,10 +23,10 @@ async function main() {
 
   // intercept specific model and operation
   const db2 = db.$use({
-    id: 'cost-logger',
+    id: 'viewCount-incrementer',
     onQuery: {
       post: {
-        create: async ({ model, operation, args, query }) => {
+        create: async ({ args, query }) => {
           // modify query args
           const updatedArgs = { 
             ...args, 
