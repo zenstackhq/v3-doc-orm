@@ -51,8 +51,11 @@ async function main() {
     }
   });
 
+  // creat two posts
   await db1.post.create({ data: { title: 'Post1', viewCount: 0 } });
   await db1.post.create({ data: { title: 'Post1', viewCount: 1 } });
+
+  // only posts with viewCount > 0 are returned
   console.log('Find posts with injected filter')
   console.log(await db1.post.findMany());
 }
