@@ -6,7 +6,8 @@
     "dev": "tsx query-builder.ts",
     "query-builder": "tsx query-builder.ts",
     "computed-fields": "tsx computed-fields",
-    "query-api-hooks": "tsx plugins/query-api-hooks.ts"
+    "query-api-hooks": "tsx plugins/query-api-hooks.ts",
+    "entity-mutation-hooks": "tsx plugins/entity-mutation-hooks"
   },
   "devDependencies": {
     "@types/node": "^24.1.0",
