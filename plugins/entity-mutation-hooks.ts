@@ -24,8 +24,8 @@ async function main() {
       if (model === 'Post' && action === 'update') {
         return {
           intercept: true,
-          loadBeforeMutationEntity: true,
-          loadAfterMutationEntity: true
+          loadBeforeMutationEntities: true,
+          loadAfterMutationEntities: true
         }
       } else {
         return { intercept: false }
