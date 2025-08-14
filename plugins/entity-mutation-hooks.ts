@@ -7,11 +7,14 @@ async function main() {
   // intercept all mutations, without loading entities
   const db1 = db.$use({
     id: 'plugin1',
-    beforeEntityMutation: ({model, action}) => {
-      console.log('[plugin1] Before mutation:', model, action);
-    },
-    afterEntityMutation: ({ model, action}) => {
-      console.log('[plugin1] After mutation:', model, action);
+    onEntityMutation: {
+      beforeEntityMutation: ({model, action}) => {
+        console.log('[plugin1] Before mutation:', model, action);
+      },
+      
+      afterEntityMutation: ({ model, action}) => {
+        console.log('[plugin1] After mutation:', model, action);
+      }
     }
   });
 
@@ -20,26 +23,30 @@ async function main() {
   // only intercept Post's update mutation, loading before and after entities
   const db2 = db.$use({
     id: 'plugin2',
-    mutationInterceptionFilter: ({model, action}) => {
-      if (model === 'Post' && action === 'update') {
-        return {
-          intercept: true,
-          loadBeforeMutationEntities: true,
-          loadAfterMutationEntities: true
+    onEntityMutation: {
+      mutationInterceptionFilter: ({model, action}) => {
+        if (model === 'Post' && action === 'update') {
+          return {
+            intercept: true,
+            loadBeforeMutationEntities: true,
+            loadAfterMutationEntities: true
+          }
+        } else {
+          return { intercept: false }
         }
-      } else {
-        return { intercept: false }
+      },
+
+      beforeEntityMutation: ({model, action, entities}) => {
+        console.log('[plugin2] Before mutation:', model, action, entities);
+      },
+
+      afterEntityMutation: ({ model, action, beforeMutationEntities, afterMutationEntities}) => {
+        console.log('[plugin2] After mutation:',
+          model,
+          action,
+          beforeMutationEntities,
+          afterMutationEntities);
       }
-    },
-    beforeEntityMutation: ({model, action, entities}) => {
-      console.log('[plugin2] Before mutation:', model, action, entities);
-    },
-    afterEntityMutation: ({ model, action, beforeMutationEntities, afterMutationEntities}) => {
-      console.log('[plugin2] After mutation:',
-        model,
-        action,
-        beforeMutationEntities,
-        afterMutationEntities);
     }
   });
 
