@@ -9,7 +9,6 @@ model User {
     id        Int    @id @default(autoincrement())
     email     String @unique
     posts     Post[]
-    postCount Int @computed
 }
 
 /// Post model

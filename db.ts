@@ -11,16 +11,6 @@ export async function createClient() {
   const db = new ZenStackClient(schema, {
     // database dialect
     dialect: new SqlJsDialect({ sqlJs: new SQL.Database() }),
-
-    // computed field definitions
-    computedFields: {
-      User: {
-        postCount: (eb) => 
-          eb.selectFrom('Post')
-            .whereRef('Post.authorId', '=', 'User.id')
-            .select(({fn}) => fn.countAll<number>().as('count'))
-      }
-    }
   });
 
   // push schema to the database
