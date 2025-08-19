@@ -5,12 +5,12 @@ async function main() {
 
   console.log('Create a user');
   const user = await db.$qb
-      .insertInto('User')
-      .values({
-        email: 'u1@test.com'
-      })
-      .returningAll()
-      .executeTakeFirstOrThrow();
+    .insertInto('User')
+    .values({
+      email: 'u1@test.com'
+    })
+    .returningAll()
+    .executeTakeFirstOrThrow();
   console.log(user);
 
   console.log('Create two posts for the user');
