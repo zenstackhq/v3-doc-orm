@@ -15,8 +15,12 @@
     "filter:query-builder": "tsx filter/query-builder.ts",
     "aggregate": "tsx aggregate.ts",
     "count": "tsx count.ts",
+    "group-by": "tsx group-by.ts",
+    "update:scalar": "tsx update/scalar.ts",
+    "update:relation": "tsx update/relation.ts",
     "delete": "tsx delete.ts",
     "query-builder": "tsx query-builder.ts",
+    "transaction": "tsx transaction.ts",
     "query-api-hooks": "tsx plugins/query-api-hooks.ts",
     "entity-mutation-hooks": "tsx plugins/entity-mutation-hooks",
     "kysely-query-hooks": "tsx plugins/kysely-query-hooks"
