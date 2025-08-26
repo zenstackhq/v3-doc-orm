@@ -24,28 +24,21 @@ async function main() {
   const db2 = db.$use({
     id: 'plugin2',
     onEntityMutation: {
-      mutationInterceptionFilter: ({model, action}) => {
+      async beforeEntityMutation({model, action, loadBeforeMutationEntities}) {
         if (model === 'Post' && action === 'update') {
-          return {
-            intercept: true,
-            loadBeforeMutationEntities: true,
-            loadAfterMutationEntities: true
-          }
-        } else {
-          return { intercept: false }
+          const entities = await loadBeforeMutationEntities();
+          console.log('[plugin2] Before mutation:', model, action, entities);
         }
       },
 
-      beforeEntityMutation: ({model, action, entities}) => {
-        console.log('[plugin2] Before mutation:', model, action, entities);
-      },
-
-      afterEntityMutation: ({ model, action, beforeMutationEntities, afterMutationEntities}) => {
-        console.log('[plugin2] After mutation:',
-          model,
-          action,
-          beforeMutationEntities,
-          afterMutationEntities);
+      async afterEntityMutation({ model, action, loadAfterMutationEntities}) {
+        if (model === 'Post' && action === 'update') {
+          const postMutationEntities = await loadAfterMutationEntities();
+          console.log('[plugin2] After mutation:',
+            model,
+            action,
+            postMutationEntities);
+        }
       }
     }
   });

@@ -42,12 +42,16 @@ async function main() {
   );
 
   // `select` and `include` are mutually exclusive
-  // @ts-expect-error
-  db.post.findFirst({ select: { id: true }, include: { author: true }});
+  try {
+    // @ts-expect-error
+    await db.post.findFirst({ select: { id: true }, include: { author: true }});
+  } catch {}
 
   // `select` and `omit` are mutually exclusive
-  // @ts-expect-error
-  db.post.findFirst({ select: { id: true }, omit: { title: true }});
+  try {
+    // @ts-expect-error
+    await db.post.findFirst({ select: { id: true }, omit: { title: true }});
+  } catch {}
 
   // deep nested select
   console.log('Deep nested select');

@@ -13,7 +13,11 @@ async function main() {
 
   console.log('Count post fields fields');
   console.log(
-    await db.post.count({ select: { _all: true, content: true }})
+    await db.post.count({ 
+      select: {
+        _all: true, // count all records
+        content: true // count non-null values
+      }})
   );
 }
 
