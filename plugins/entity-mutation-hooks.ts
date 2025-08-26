@@ -37,7 +37,8 @@ async function main() {
           console.log('[plugin2] After mutation:',
             model,
             action,
-            postMutationEntities);
+            postMutationEntities
+          );
         }
       }
     }
