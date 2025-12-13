@@ -9,15 +9,16 @@ async function main() {
   console.log(await db.post.count());
 
   console.log('Count published posts');
-  console.log(await db.post.count({ where: { published: true }}));
+  console.log(await db.post.count({ where: { published: true } }));
 
   console.log('Count post fields fields');
   console.log(
-    await db.post.count({ 
+    await db.post.count({
       select: {
         _all: true, // count all records
         content: true // count non-null values
-      }})
+      }
+    })
   );
 }
 

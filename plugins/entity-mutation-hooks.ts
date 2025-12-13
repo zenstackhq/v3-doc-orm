@@ -8,11 +8,11 @@ async function main() {
   const db1 = db.$use({
     id: 'plugin1',
     onEntityMutation: {
-      beforeEntityMutation: ({model, action}) => {
+      beforeEntityMutation: ({ model, action }) => {
         console.log('[plugin1] Before mutation:', model, action);
       },
-      
-      afterEntityMutation: ({ model, action}) => {
+
+      afterEntityMutation: ({ model, action }) => {
         console.log('[plugin1] After mutation:', model, action);
       }
     }
@@ -24,28 +24,24 @@ async function main() {
   const db2 = db.$use({
     id: 'plugin2',
     onEntityMutation: {
-      async beforeEntityMutation({model, action, loadBeforeMutationEntities}) {
+      async beforeEntityMutation({ model, action, loadBeforeMutationEntities }) {
         if (model === 'Post' && action === 'update') {
           const entities = await loadBeforeMutationEntities();
           console.log('[plugin2] Before mutation:', model, action, entities);
         }
       },
 
-      async afterEntityMutation({ model, action, loadAfterMutationEntities}) {
+      async afterEntityMutation({ model, action, loadAfterMutationEntities }) {
         if (model === 'Post' && action === 'update') {
           const postMutationEntities = await loadAfterMutationEntities();
-          console.log('[plugin2] After mutation:',
-            model,
-            action,
-            postMutationEntities
-          );
+          console.log('[plugin2] After mutation:', model, action, postMutationEntities);
         }
       }
     }
   });
 
   const post = await db2.post.create({ data: { title: 'New Post' } });
-  await db2.post.update({ where: { id: post.id }, data: { viewCount: 1 }});
+  await db2.post.update({ where: { id: post.id }, data: { viewCount: 1 } });
 }
 
 main();

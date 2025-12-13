@@ -5,7 +5,7 @@ async function main() {
   const db = await createClient();
   await createUsersAndPosts(db);
 
-  console.log('Post grouped by "published"')
+  console.log('Post grouped by "published"');
   console.log(
     await db.post.groupBy({
       by: ['published'],

@@ -14,7 +14,7 @@ async function main() {
           eb
             .selectFrom('Post')
             .whereRef('Post.authorId', '=', 'User.id')
-            .select(({fn}) => eb(fn.countAll(), '>=', 2).as('hasMorePosts'))
+            .select(({ fn }) => eb(fn.countAll(), '>=', 2).as('hasMorePosts'))
       }
     })
   );

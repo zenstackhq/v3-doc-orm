@@ -11,31 +11,31 @@ async function main() {
   // selecting fields
   console.log('Selecting fields, scalar and relation');
   console.log(
-    await db.post.findFirst({ 
-      select: { id: true, title: true, author: true } 
+    await db.post.findFirst({
+      select: { id: true, title: true, author: true }
     })
   );
 
   // omitting scalar fields
   console.log('Omitting scalar fields');
   console.log(
-    await db.post.findFirst({ 
+    await db.post.findFirst({
       omit: { viewCount: true, createdAt: true }
     })
-  )
+  );
 
   // including relations (which selects all scalar fields as well)
-  console.log('Including a relation')
+  console.log('Including a relation');
   console.log(
-    await db.post.findFirst({ 
-      include: { author: true } 
+    await db.post.findFirst({
+      include: { author: true }
     })
   );
 
   // combining `include` and `omit`
   console.log('Combining include and omit');
   console.log(
-    await db.post.findFirst({ 
+    await db.post.findFirst({
       include: { author: true },
       omit: { viewCount: true, createdAt: true }
     })
@@ -44,13 +44,13 @@ async function main() {
   // `select` and `include` are mutually exclusive
   try {
     // @ts-expect-error
-    await db.post.findFirst({ select: { id: true }, include: { author: true }});
+    await db.post.findFirst({ select: { id: true }, include: { author: true } });
   } catch {}
 
   // `select` and `omit` are mutually exclusive
   try {
     // @ts-expect-error
-    await db.post.findFirst({ select: { id: true }, omit: { title: true }});
+    await db.post.findFirst({ select: { id: true }, omit: { title: true } });
   } catch {}
 
   // deep nested select
@@ -59,7 +59,7 @@ async function main() {
     await db.user.findFirst({
       select: {
         email: true,
-        posts: { select: { title: true }}
+        posts: { select: { title: true } }
       }
     })
   );
@@ -70,7 +70,7 @@ async function main() {
     await db.user.findFirst({
       select: {
         email: true,
-        posts: { 
+        posts: {
           where: { published: true },
           orderBy: { viewCount: 'desc' }
         }
@@ -90,7 +90,7 @@ async function main() {
   );
 
   // you can also select a specific relation's count
-  console.log('Selecting a specific relation\'s count');
+  console.log("Selecting a specific relation's count");
   console.log(
     await db.user.findFirst({
       select: {

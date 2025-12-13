@@ -12,19 +12,19 @@ async function main() {
           {
             title: 'Post1',
             content: 'My first post',
-            published: false,
+            published: false
           },
           {
             title: 'Post2',
             content: 'Just another post',
-            published: true,
-          },
-        ],
-      },
+            published: true
+          }
+        ]
+      }
     },
     // the `include` clause includes the relation in the
     // create result
-    include: { posts: true },
+    include: { posts: true }
   });
 
   // the created user together with the posts relation are returned
@@ -40,15 +40,18 @@ async function main() {
 
   // instead of creating nested relations, you can also use
   // the `connect` clause to connect to existing entities
-  const newPost = await db.post.create({ data: { title: 'Post3', content: '' }});
-  const user3 = await db.user.create({ 
+  const newPost = await db.post.create({ data: { title: 'Post3', content: '' } });
+  const user3 = await db.user.create({
     data: {
       email: 'u3@test.com',
-      posts: { connect: {id: newPost.id }}
+      posts: { connect: { id: newPost.id } }
     },
     include: { posts: true }
   });
-  console.log(`User#${user3.id} is connected to posts:`, user3.posts.map(p => p.id));
+  console.log(
+    `User#${user3.id} is connected to posts:`,
+    user3.posts.map((p) => p.id)
+  );
 
   // `createMany` allows you to batch create entities
   const result = await db.user.createMany({
@@ -64,7 +67,7 @@ async function main() {
   });
   console.log('Some more users created:', newUsers);
 
-  // use the `skipDuplicates` flag to ignore items that violate 
+  // use the `skipDuplicates` flag to ignore items that violate
   // unique constraints
   const moreUsers = await db.user.createManyAndReturn({
     data: [{ email: 'u7@test.com' }, { email: 'u8@test.com' }],

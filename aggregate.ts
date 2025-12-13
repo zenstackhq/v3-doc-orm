@@ -11,7 +11,7 @@ async function main() {
       // you can also use `count: true` to simply count all rows
       _count: { _all: true, content: true },
       _avg: { viewCount: true },
-      _max: { viewCount: true },
+      _max: { viewCount: true }
     })
   );
 }

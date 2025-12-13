@@ -2,7 +2,7 @@ import { createClient } from '../db';
 
 async function main() {
   const db = await createClient();
-  
+
   const user = await db.user.create({
     data: { email: 'u1@test.com' }
   });
@@ -13,19 +13,19 @@ async function main() {
     await db.user.update({
       where: { id: user.id },
       data: { posts: { create: { id: 1, title: 'Post1' } } },
-      include: { posts: { select: { id: true, title: true }} }
+      include: { posts: { select: { id: true, title: true } } }
     })
   );
 
   console.log('Update user and connect an existing post');
   // create an detached post
-  const post2 = await db.post.create({ data: { title: 'Post2' }});
+  const post2 = await db.post.create({ data: { title: 'Post2' } });
   // connect to the user
   console.log(
     await db.user.update({
       where: { id: user.id },
       data: { posts: { connect: { id: post2.id } } },
-      include: { posts: { select: { id: true, title: true }} }
+      include: { posts: { select: { id: true, title: true } } }
     })
   );
 
@@ -35,7 +35,7 @@ async function main() {
     await db.user.update({
       where: { id: user.id },
       data: { posts: { disconnect: { id: post2.id } } },
-      include: { posts: { select: { id: true, title: true }} }
+      include: { posts: { select: { id: true, title: true } } }
     })
   );
 
@@ -44,15 +44,15 @@ async function main() {
   console.log(
     await db.user.update({
       where: { id: user.id },
-      data: { 
-        posts: { 
+      data: {
+        posts: {
           update: {
-            where: { id: 1 }, 
-            data: { title: 'Updated Post' } 
-          } 
-        } 
+            where: { id: 1 },
+            data: { title: 'Updated Post' }
+          }
+        }
       },
-      include: { posts: { select: { id: true, title: true }} }
+      include: { posts: { select: { id: true, title: true } } }
     })
   );
 
@@ -62,7 +62,7 @@ async function main() {
     await db.user.update({
       where: { id: user.id },
       data: { posts: { delete: { id: 1 } } },
-      include: { posts: { select: { id: true, title: true }} }
+      include: { posts: { select: { id: true, title: true } } }
     })
   );
 
@@ -71,16 +71,16 @@ async function main() {
   console.log(
     await db.user.update({
       where: { id: user.id },
-      data: { 
+      data: {
         posts: {
-          upsert: { 
-            where: { id: 1 }, 
-            create: { id: 1, title: 'Post1'},
+          upsert: {
+            where: { id: 1 },
+            create: { id: 1, title: 'Post1' },
             update: { title: 'Nother Post' }
-          } 
+          }
         }
       },
-      include: { posts: { select: { id: true, title: true }} }
+      include: { posts: { select: { id: true, title: true } } }
     })
   );
 }
