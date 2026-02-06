@@ -31,12 +31,12 @@
   "devDependencies": {
     "@types/node": "^24.1.0",
     "@types/sql.js": "^1.4.9",
-    "@zenstackhq/cli": "^3.3.2",
+    "@zenstackhq/cli": "^3.3.3",
     "tsx": "^4.20.3",
     "typescript": "^5.8.3"
   },
   "dependencies": {
-    "@zenstackhq/orm": "^3.3.2",
+    "@zenstackhq/orm": "^3.3.3",
     "kysely": "^0.28.8",
     "sql.js": "^1.13.0",
     "zod": "^4.3.6"
