@@ -13,4 +13,4 @@ const userCreate: UserCreateArgs = { data: { email: 'u1@test.com' } };
 // the `ModelResult` type can be used to infer model's type given field selection
 // and relation inclusion
 // { id: number, email: string; postCount: number; posts: Post[] }
-type UserWithPosts = ModelResult<SchemaType, 'User', ClientOptions<SchemaType>, { include: { posts: true } }>;
+type UserWithPosts = ModelResult<SchemaType, 'User', { include: { posts: true } }>;
