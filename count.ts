@@ -11,7 +11,7 @@ async function main() {
   console.log('Count published posts');
   console.log(await db.post.count({ where: { published: true } }));
 
-  console.log('Count post fields fields');
+  console.log('Count post fields');
   console.log(
     await db.post.count({
       select: {

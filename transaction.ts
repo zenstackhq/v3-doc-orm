@@ -6,7 +6,7 @@ async function main() {
   console.log('Create two users with a sequential transaction');
   const users = await db.$transaction([
     db.user.create({ data: { email: 'u1@test.com' } }),
-    db.user.create({ data: { email: 'u2@test.com' } }),
+    db.user.create({ data: { email: 'u2@test.com' } })
   ]);
   console.log(users);
 
@@ -14,12 +14,12 @@ async function main() {
   try {
     await db.$transaction([
       db.user.create({ data: { email: 'u3@test.com' } }),
-      db.user.create({ data: { email: 'u3@test.com' } }),
-      ]
-    );
+      db.user.create({ data: { email: 'u3@test.com' } })
+    ]);
   } catch (err: any) {
     console.log('Transaction rolled back due to:', err.cause.message);
-    console.log('User created:', await db.user.findUnique({where: { email: 'u3@test.com' } }));
+    // the following should log: "User created: null"
+    console.log('User created:', await db.user.findUnique({ where: { email: 'u3@test.com' } }));
   }
 
   console.log('Create user and post with an interactive transaction');
