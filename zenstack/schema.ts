@@ -33,6 +33,12 @@ export class SchemaType implements SchemaDef {
                     array: true,
                     relation: { opposite: "author" }
                 },
+                comments: {
+                    name: "comments",
+                    type: "Comments",
+                    array: true,
+                    relation: { opposite: "user" }
+                },
                 profile: {
                     name: "profile",
                     type: "Json",
@@ -109,12 +115,64 @@ export class SchemaType implements SchemaDef {
                     foreignKeyFor: [
                         "author"
                     ]
+                },
+                comments: {
+                    name: "comments",
+                    type: "Comments",
+                    array: true,
+                    relation: { opposite: "post" }
                 }
             },
             idFields: ["id"],
             uniqueFields: {
                 id: { type: "Int" },
                 slug: { type: "String" }
+            }
+        },
+        Comments: {
+            name: "Comments",
+            fields: {
+                id: {
+                    name: "id",
+                    type: "Int",
+                    id: true,
+                    attributes: [{ name: "@id" }, { name: "@default", args: [{ name: "value", value: ExpressionUtils.call("autoincrement") }] }],
+                    default: ExpressionUtils.call("autoincrement")
+                },
+                content: {
+                    name: "content",
+                    type: "String"
+                },
+                post: {
+                    name: "post",
+                    type: "Post",
+                    attributes: [{ name: "@relation", args: [{ name: "fields", value: ExpressionUtils.array("Int", [ExpressionUtils.field("postId")]) }, { name: "references", value: ExpressionUtils.array("Int", [ExpressionUtils.field("id")]) }] }],
+                    relation: { opposite: "comments", fields: ["postId"], references: ["id"] }
+                },
+                postId: {
+                    name: "postId",
+                    type: "Int",
+                    foreignKeyFor: [
+                        "post"
+                    ]
+                },
+                user: {
+                    name: "user",
+                    type: "User",
+                    attributes: [{ name: "@relation", args: [{ name: "fields", value: ExpressionUtils.array("Int", [ExpressionUtils.field("userId")]) }, { name: "references", value: ExpressionUtils.array("Int", [ExpressionUtils.field("id")]) }] }],
+                    relation: { opposite: "comments", fields: ["userId"], references: ["id"] }
+                },
+                userId: {
+                    name: "userId",
+                    type: "Int",
+                    foreignKeyFor: [
+                        "user"
+                    ]
+                }
+            },
+            idFields: ["id"],
+            uniqueFields: {
+                id: { type: "Int" }
             }
         }
     } as const;

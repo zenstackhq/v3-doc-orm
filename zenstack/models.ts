@@ -15,3 +15,7 @@ export type User = $ModelResult<$Schema, "User">;
  * Post model
  */
 export type Post = $ModelResult<$Schema, "Post">;
+/**
+ * Comment model
+ */
+export type Comments = $ModelResult<$Schema, "Comments">;
