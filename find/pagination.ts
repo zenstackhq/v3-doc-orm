@@ -37,7 +37,7 @@ async function main() {
   );
 
   // exclude the cursor with `skip`
-  console.log('Find with cursor slug="post2", exclusive');
+  console.log('Find with cursor id=2, exclusive');
   console.log(
     await db.post.findMany({
       orderBy: { id: 'asc' },

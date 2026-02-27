@@ -18,7 +18,7 @@ async function main() {
   );
 
   // sort by multiple fields
-  console.log('Posts sorted by publised asc, viewCount desc');
+  console.log('Posts sorted by published asc, viewCount desc');
   console.log(
     await db.post.findMany({
       orderBy: { published: 'asc', viewCount: 'desc' },
@@ -27,7 +27,7 @@ async function main() {
   );
 
   // sort by a relation field
-  console.log('Posts osrted by author email desc');
+  console.log('Posts ordered by author email desc');
   console.log(
     await db.post.findMany({
       orderBy: { author: { email: 'desc' } },

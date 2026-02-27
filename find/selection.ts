@@ -9,7 +9,7 @@ async function main() {
   await createUsersAndPosts(db);
 
   // selecting fields
-  console.log('Selecting fields, scalar and relation');
+  console.log('Selecting fields: scalar and relation');
   console.log(
     await db.post.findFirst({
       select: { id: true, title: true, author: true }
@@ -79,7 +79,7 @@ async function main() {
   );
 
   // if a model has to-many relations, you can select their counts
-  console.log('Selecting relation counts');
+  console.log('Selecting counts for all to-many relations');
   console.log(
     await db.user.findFirst({
       select: {
@@ -90,7 +90,7 @@ async function main() {
   );
 
   // you can also select a specific relation's count
-  console.log("Selecting a specific relation's count");
+  console.log("Selecting a specific to-many relation's count");
   console.log(
     await db.user.findFirst({
       select: {
