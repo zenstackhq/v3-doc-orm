@@ -5,7 +5,7 @@
 
 /* eslint-disable */
 
-import { type SchemaDef, ExpressionUtils } from "@zenstackhq/orm/schema";
+import { type SchemaDef, ExpressionUtils } from "@zenstackhq/schema";
 export class SchemaType implements SchemaDef {
     provider = {
         type: "sqlite"
@@ -35,7 +35,7 @@ export class SchemaType implements SchemaDef {
                 },
                 comments: {
                     name: "comments",
-                    type: "Comments",
+                    type: "Comment",
                     array: true,
                     relation: { opposite: "user" }
                 },
@@ -116,9 +116,9 @@ export class SchemaType implements SchemaDef {
                         "author"
                     ]
                 },
-                comments: {
-                    name: "comments",
-                    type: "Comments",
+                comment: {
+                    name: "comment",
+                    type: "Comment",
                     array: true,
                     relation: { opposite: "post" }
                 }
@@ -129,8 +129,8 @@ export class SchemaType implements SchemaDef {
                 slug: { type: "String" }
             }
         },
-        Comments: {
-            name: "Comments",
+        Comment: {
+            name: "Comment",
             fields: {
                 id: {
                     name: "id",
@@ -147,7 +147,7 @@ export class SchemaType implements SchemaDef {
                     name: "post",
                     type: "Post",
                     attributes: [{ name: "@relation", args: [{ name: "fields", value: ExpressionUtils.array("Int", [ExpressionUtils.field("postId")]) }, { name: "references", value: ExpressionUtils.array("Int", [ExpressionUtils.field("id")]) }] }],
-                    relation: { opposite: "comments", fields: ["postId"], references: ["id"] }
+                    relation: { opposite: "comment", fields: ["postId"], references: ["id"] }
                 },
                 postId: {
                     name: "postId",

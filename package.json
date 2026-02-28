@@ -26,17 +26,18 @@
     "entity-mutation-hooks": "tsx plugins/entity-mutation-hooks",
     "kysely-query-hooks": "tsx plugins/kysely-query-hooks",
     "extend-orm-client": "tsx plugins/extend-orm-client.ts",
+    "slicing": "tsx slicing/slicing.ts",
     "up": "npm i @zenstackhq/cli@latest @zenstackhq/orm@latest"
   },
   "devDependencies": {
     "@types/node": "^24.1.0",
     "@types/sql.js": "^1.4.9",
-    "@zenstackhq/cli": "^3.3.3",
+    "@zenstackhq/cli": "^3.4.1",
     "tsx": "^4.20.3",
     "typescript": "^5.8.3"
   },
   "dependencies": {
-    "@zenstackhq/orm": "^3.3.3",
+    "@zenstackhq/orm": "^3.4.1",
     "kysely": "^0.28.8",
     "sql.js": "^1.13.0",
     "zod": "^4.3.6"

@@ -6,7 +6,7 @@
 /* eslint-disable */
 
 import { type SchemaType as $Schema } from "./schema";
-import { type ModelResult as $ModelResult } from "@zenstackhq/orm";
+import type { ModelResult as $ModelResult } from "@zenstackhq/orm";
 /**
  * User model
  */
@@ -18,4 +18,4 @@ export type Post = $ModelResult<$Schema, "Post">;
 /**
  * Comment model
  */
-export type Comments = $ModelResult<$Schema, "Comments">;
+export type Comment = $ModelResult<$Schema, "Comment">;
