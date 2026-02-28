@@ -5,9 +5,8 @@ import { createPosts } from '../utils';
 async function main() {
   const db = await createClient();
 
-  // create some test posts
-  await createPosts(db);
-
+  // create a sliced ORM client with slicing options, you can also pass
+  // the options directly when constructing a `ZenStackClient`
   const slicedDb = db.$setOptions({
     ...db.$options,
     slicing: {
