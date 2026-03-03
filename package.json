@@ -27,7 +27,7 @@
     "kysely-query-hooks": "tsx plugins/kysely-query-hooks",
     "extend-orm-client": "tsx plugins/extend-orm-client.ts",
     "slicing": "tsx slicing/slicing.ts",
-    "up": "npm i @zenstackhq/cli@latest @zenstackhq/orm@latest"
+    "up": "npm i @zenstackhq/cli@latest @zenstackhq/orm@latest @zenstackhq/schema@latest"
   },
   "devDependencies": {
     "@types/node": "^24.1.0",
@@ -38,6 +38,7 @@
   },
   "dependencies": {
     "@zenstackhq/orm": "^3.4.1",
+    "@zenstackhq/schema": "^3.4.1",
     "kysely": "^0.28.8",
     "sql.js": "^1.13.0",
     "zod": "^4.3.6"
