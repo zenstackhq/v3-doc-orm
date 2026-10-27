@@ -1,7 +1,10 @@
 import { ClientContract } from '@zenstackhq/orm';
 import { SchemaType } from './zenstack/schema';
 
-export function createPosts(db: ClientContract<SchemaType>) {
+// accepts clients extended with plugins (via `$use`) too
+type Client = ClientContract<SchemaType, any, any, any, any>;
+
+export function createPosts(db: Client) {
   return db.post.createMany({
     data: [
       { id: 1, title: 'Post1', slug: 'post1', content: 'First post' },
@@ -10,7 +13,7 @@ export function createPosts(db: ClientContract<SchemaType>) {
   });
 }
 
-export async function createUsersAndPosts(db: ClientContract<SchemaType>) {
+export async function createUsersAndPosts(db: Client) {
   // user1 with 1 post
   await db.user.create({
     data: {
